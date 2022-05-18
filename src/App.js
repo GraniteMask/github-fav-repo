@@ -18,6 +18,11 @@ function App() {
   if(results){
     console.log(results)
   }
+
+  const handleFavorite = (each) =>{
+    
+  }
+
   return (
     <div className="App">
       <h1 style={{marginTop: "6rem", fontSize: "3rem"}}>Search GitHub Repositories</h1>
@@ -38,9 +43,10 @@ function App() {
           <div className="search_results_div">
             <h2 style={{marginTop: "1rem"}}>Your Search Results</h2>
             {
-              results.items.map((each,i)=>(
-                <a href={each.html_url} style={{textDecoration: "none", color: "rgb(206, 201, 201)"}}><h4>{i+1}. <span style={{fontWeight: "bold", color: '#dc2f55'}}>{each.full_name}</span> by <span style={{fontWeight: "bold"}}>{each.owner.login}</span> ({each.stargazers_count} stars)</h4></a>
-              ))
+              results.items.map((each,i)=>(<>
+                <h4>{i+1}. <a href={each.html_url} style={{textDecoration: "none", color: "rgb(206, 201, 201)"}}><span style={{fontWeight: "bold", color: '#dc2f55'}}>{each.full_name}</span></a> by <span style={{fontWeight: "bold"}}>{each.owner.login}</span> ({each.stargazers_count} stars)</h4>
+                <button className="fav-button" onClick={()=>handleFavorite(each)}>Add to Favorite</button>
+                </>))
             }
           </div>
         )

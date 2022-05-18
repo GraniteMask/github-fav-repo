@@ -3,7 +3,8 @@ import thunk from "redux-thunk";
 import { searchReducer } from "./reducers/searchReducers";
 
 const initialState ={
-    result: []
+    result: [],
+    favorite: localStorage.getItem('favorite-repo') ? JSON.parse(localStorage.getItem('favorite-repo')) : []
 }
 
 const reducer = combineReducers({
