@@ -1,12 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchRepo } from './actions/searchActions';
+import { favoriteAction } from './actions/favoriteAction';
 
 function App() {
   const searchResults = useSelector(state=> state.searchResults)
+  const favoriteRepo = useSelector(state=> state.favoriteRepo)
   const {loading, error, results} = searchResults
+  const {favorite} = favoriteRepo
   const dispatch = useDispatch()
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -20,7 +22,7 @@ function App() {
   }
 
   const handleFavorite = (each) =>{
-    
+    dispatch(favoriteAction(each))
   }
 
   return (

@@ -1,5 +1,6 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import thunk from "redux-thunk";
+import { favoriteReducer } from "./reducers/favoriteReducer";
 import { searchReducer } from "./reducers/searchReducers";
 
 const initialState ={
@@ -8,7 +9,8 @@ const initialState ={
 }
 
 const reducer = combineReducers({
-    searchResults: searchReducer
+    searchResults: searchReducer,
+    favoriteRepo: favoriteReducer
 })
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
