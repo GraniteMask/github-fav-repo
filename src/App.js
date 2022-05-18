@@ -20,25 +20,9 @@ function App() {
   }
   return (
     <div className="App">
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
-
-      {/* {
-        results
-      } */}
+      <h1 style={{marginTop: "6rem", fontSize: "3rem"}}>Search GitHub Repositories</h1>
       <div className="wrapper">
+        
         <div className="input-group">
           <div class="input-container ic1">
             <input className="input" type="text" name="search_item" onChange={(e)=>setSearchQuery(e.target.value)} placeholder=" "/>
@@ -47,6 +31,27 @@ function App() {
           </div>
         </div>
       </div>
+
+      {
+        (Object.keys(results).length === 0 && results.constructor === Object ) == false ?
+        (
+          <div className="search_results_div">
+            <h2 style={{marginTop: "1rem"}}>Your Search Results</h2>
+            {
+              results.items.map((each,i)=>(
+                <a href={each.html_url} style={{textDecoration: "none", color: "rgb(206, 201, 201)"}}><h4>{i+1}. <span style={{fontWeight: "bold", color: '#dc2f55'}}>{each.full_name}</span> by <span style={{fontWeight: "bold"}}>{each.owner.login}</span> ({each.stargazers_count} stars)</h4></a>
+              ))
+            }
+          </div>
+        )
+        :
+        (
+          <></>
+        )
+      }
+
+      
+
     </div>
   );
 }

@@ -1,12 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Macondo&display=swap');
 
-.wrapper {
+.App{
   background: #15172b;
   height: 100vh;
   width: 100vw;
+  overflow: scroll;
+  color: rgb(206, 201, 201);
+  font-family: 'Macondo', cursive !important;
+  text-align: center;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.wrapper {
+  background: #15172b;
+  /* height: 100vh;
+  width: 100vw; */
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
   overflow: hidden;
+  font-family: 'Macondo', cursive !important;
+  /* margin-top: 10rem; */
+  padding-top: 1rem;
 }
 
 .input {
@@ -20,6 +36,11 @@
   outline: 0;
   padding: 4px 20px 0;
   width: 100%;
+}
+
+input[type="text"]
+{
+  font-family: 'Macondo', cursive !important;
 }
 
 .cut {
@@ -45,7 +66,7 @@
 
 .placeholder {
   color: #65657b;
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
   left: 20px;
   line-height: 14px;
   pointer-events: none;
@@ -74,4 +95,22 @@
   width: 100%;
 }
 
+
+.search_results_div{
+  border: 1px solid rgb(206, 201, 201, 0.8);
+  height: 35rem;
+  width: 40%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 6rem;
+  border-radius: 20px;
+  overflow: scroll;
+  overflow-x: hidden;
+  background: #111222;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
 
