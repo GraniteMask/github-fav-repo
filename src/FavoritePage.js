@@ -11,6 +11,7 @@ function FavoritePage() {
   const dispatch = useDispatch()
   const [searchQuery, setSearchQuery] = useState('')
   const [favoriteArr, setFavoriteArr] = useState([])
+  const [searchResult, setSearchResult] = useState([])
   let history = useHistory()
 
   useEffect(()=>{
@@ -18,9 +19,20 @@ function FavoritePage() {
   },[])
 
   useEffect(() =>{
-    dispatch(searchRepo(searchQuery))
+    setSearchResult([])
+    var tempResult = []
+    if(searchQuery != ''){
+      for(var i=0; i<favoriteArr.length; i++){
+        if(favoriteArr[i].full_name.toLowerCase().includes(searchQuery.toLowerCase())){
+          console.log(favoriteArr[i])
+          tempResult.push(favoriteArr[i])
+          setSearchResult(tempResult)
+        }
+      }
+    }
   },[searchQuery])
 
+  console.log(searchResult)
 
   useEffect(()=>{
     // if(favoriteArr[favoriteArr.length-1])
@@ -47,18 +59,35 @@ function FavoritePage() {
     localStorage.setItem('favorite-repo', JSON.stringify(tempArray))
   }
 
+  const handleDeleteAfterSearch = (id) =>{
+    var tempArray = new Array()
+    for(var i=0; i<favoriteArr.length; i++){
+      if(favoriteArr[i].id != id){
+        tempArray.push(favoriteArr[i])
+      }
+    }
+    console.log(tempArray)
+    
+    setFavoriteArr(tempArray)
+    if(tempArray.length == 0){
+      tempArray = []
+    }
+    localStorage.setItem('favorite-repo', JSON.stringify(tempArray))
+    setSearchResult([])
+  }
+
   console.log(favoriteArr)
 
   return (
     <div className="App">
-      <h1 style={{marginTop: "6rem", fontSize: "3rem"}}>Search GitHub Repositories</h1>
+      <h1 style={{marginTop: "6rem", fontSize: "3rem"}}>Your Favorite Repositories</h1>
       <div className="wrapper">
         
         <div className="input-group">
           <div class="input-container ic1">
             <input className="input" type="text" name="search_item" onChange={(e)=>setSearchQuery(e.target.value)} placeholder=" "/>
             <div className="cut"></div>
-            <label for="search_item" className="placeholder">Search</label>
+            <label for="search_item" className="placeholder">Enter Name</label>
           </div>
         </div>
       </div>
@@ -70,10 +99,15 @@ function FavoritePage() {
       (<>
         <h2 style={{marginTop: "1rem"}}>Your Favorite Repositories</h2>
         {
-            favoriteArr.length != 0 && favoriteArr.map((each,i)=>
+            searchResult.length == 0 ? favoriteArr.length != 0 && favoriteArr.map((each,i)=>
             (<>
             <h4>{i+1}. <a href={each.html_url} style={{textDecoration: "none", color: "rgb(206, 201, 201)"}}><span style={{fontWeight: "bold", color: '#dc2f55'}}>{each.full_name}</span></a> by <span style={{fontWeight: "bold"}}>{each.owner.login}</span> ({each.stargazers_count} stars)</h4>
             <button className="fav-button" onClick={()=>handleDelete(each.id)}>Delete from Favorites</button>
+            </>))
+            :
+            searchResult.map((each,i)=>(<>
+              <h4>{i+1}. <a href={each.html_url} style={{textDecoration: "none", color: "rgb(206, 201, 201)"}}><span style={{fontWeight: "bold", color: '#dc2f55'}}>{each.full_name}</span></a> by <span style={{fontWeight: "bold"}}>{each.owner.login}</span> ({each.stargazers_count} stars)</h4>
+              <button className="fav-button" onClick={()=>handleDeleteAfterSearch(each.id)}>Delete from Favorites</button>
             </>))
         }
       </>)
