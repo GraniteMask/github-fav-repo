@@ -35,7 +35,7 @@ function FavoritePage() {
 
   useEffect(()=>{
     // if(favoriteArr[favoriteArr.length-1])
-    if(favoriteArr.length !==0){
+    if(favoriteArr !== null && favoriteArr.length !==0){
       dispatch(favoriteAction(favoriteArr))
     }
     
@@ -129,7 +129,7 @@ function FavoritePage() {
       {/* <CSVDownload data={csvData} target="_blank" />; */}
     <div className="search_results_div">
     {
-      favoriteArr.length !== 0 ?
+      favoriteArr !== null && favoriteArr.length !== 0 ?
       (<>
         <h2 style={{marginTop: "1rem"}}>Your Favorite Repositories</h2>
         {
