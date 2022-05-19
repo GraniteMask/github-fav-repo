@@ -1,10 +1,8 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { searchRepo } from './actions/searchActions';
 import { favoriteAction } from './actions/favoriteAction';
 import { useHistory } from "react-router-dom";
-import { CSVLink, CSVDownload } from "react-csv";
 
 function FavoritePage() {
   const favoriteRepo = useSelector(state=> state.favoriteRepo)
