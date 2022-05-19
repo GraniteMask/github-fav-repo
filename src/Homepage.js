@@ -6,7 +6,6 @@ import { favoriteAction } from './actions/favoriteAction';
 import { useHistory } from "react-router-dom";
 
 
-
 function HomePage() {
   const searchResults = useSelector(state=> state.searchResults)
   const favoriteRepo = useSelector(state=> state.favoriteRepo)
@@ -46,7 +45,7 @@ function HomePage() {
 
   return (
     <div className="App">
-      <h1 style={{marginTop: "6rem", fontSize: "3rem"}}>Search GitHub Repositories</h1>
+      <h1 style={{ fontSize: "3rem"}} className="title">Search GitHub Repositories</h1>
       <div className="wrapper">
         
         <div className="input-group">
@@ -73,7 +72,7 @@ function HomePage() {
           </>)
           :
           (
-            <h2 style={{ marginTop: "16rem"}}>Search repositories to see results here.</h2>
+            <h2 style={{ marginTop: "16rem"}}>Search repositories to see results.</h2>
           )
         }
         

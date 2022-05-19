@@ -142,3 +142,16 @@ input[type="text"]
 /* ::-webkit-file-upload-button {
   display: none;
 } */
+
+.title{
+  margin-top: 6rem;
+}
+
+@media screen and (max-width: 769px){
+  .title{
+    margin-top: 3rem !important;
+  }
+  .search_results_div{
+    height: 30rem;
+  }
+}

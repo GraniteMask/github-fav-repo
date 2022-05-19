@@ -96,6 +96,7 @@ function FavoritePage() {
         const text = (e.target.result)
         localStorage.setItem('favorite-repo', text)
         setFavoriteArr(JSON.parse(text))
+        window.location.reload()
       };
       reader.readAsText(e.target.files[0])
     }
@@ -104,7 +105,7 @@ function FavoritePage() {
 
   return (
     <div className="App">
-      <h1 style={{marginTop: "6rem", fontSize: "3rem"}}>Your Favorite Repositories</h1>
+      <h1 style={{fontSize: "3rem"}}  className="title">Your Favorite Repositories</h1>
       <div className="wrapper">
         
         <div className="input-group">
@@ -147,7 +148,7 @@ function FavoritePage() {
         }
       </>)
       :(
-        <h2 style={{ marginTop: "16rem"}}>Sorry No favorite Repositories added.</h2>
+        <h2 style={{ marginTop: "16rem"}}>Sorry no favorite repositories added.</h2>
       )
     }
     
