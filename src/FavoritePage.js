@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { searchRepo } from './actions/searchActions';
 import { favoriteAction } from './actions/favoriteAction';
 import { useHistory } from "react-router-dom";
+import { CSVLink, CSVDownload } from "react-csv";
 
 function FavoritePage() {
   const favoriteRepo = useSelector(state=> state.favoriteRepo)
@@ -78,6 +79,15 @@ function FavoritePage() {
 
   console.log(favoriteArr)
 
+  const exportFunc = () =>{
+    const element = document.createElement("a");
+    const file = new Blob([JSON.stringify(favoriteArr)], {type: 'text/plain'});
+    element.href = URL.createObjectURL(file);
+    element.download = "favoriteRepoBackup.txt";
+    document.body.appendChild(element); // Required for this to work in FireFox
+    element.click();
+  }
+
   return (
     <div className="App">
       <h1 style={{marginTop: "6rem", fontSize: "3rem"}}>Your Favorite Repositories</h1>
@@ -93,6 +103,8 @@ function FavoritePage() {
       </div>
 
       <button className="fav-button" style={{marginTop: "1.5rem"}} onClick={()=>history.push('/')}>Go back to search page</button>
+      <button className="fav-button" style={{marginTop: "1.5rem"}} onClick={()=>exportFunc()}>Export</button>
+      {/* <CSVDownload data={csvData} target="_blank" />; */}
     <div className="search_results_div">
     {
       favoriteArr.length != 0 ?
