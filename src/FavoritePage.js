@@ -94,7 +94,7 @@ function FavoritePage() {
         const text = (e.target.result)
         localStorage.setItem('favorite-repo', text)
         setFavoriteArr(JSON.parse(text))
-        window.location.reload()
+        history.push('/favorite')
       };
       reader.readAsText(e.target.files[0])
     }
