@@ -1,12 +1,12 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { favoriteAction } from './actions/favoriteAction';
 import { useHistory } from "react-router-dom";
 
 function FavoritePage() {
-  const favoriteRepo = useSelector(state=> state.favoriteRepo)
-  const {favorite} = favoriteRepo
+  // const favoriteRepo = useSelector(state=> state.favoriteRepo)
+  // const {favorite} = favoriteRepo
   const dispatch = useDispatch()
   const [searchQuery, setSearchQuery] = useState('')
   const [favoriteArr, setFavoriteArr] = useState([])
@@ -14,13 +14,13 @@ function FavoritePage() {
   let history = useHistory()
 
   useEffect(()=>{
-    setFavoriteArr(JSON.parse(localStorage.getItem('favorite-repo')) != undefined ? JSON.parse(localStorage.getItem('favorite-repo')) : [])
+    setFavoriteArr(JSON.parse(localStorage.getItem('favorite-repo')) !== undefined ? JSON.parse(localStorage.getItem('favorite-repo')) : [])
   },[])
 
   useEffect(() =>{
     setSearchResult([])
     var tempResult = []
-    if(searchQuery != ''){
+    if(searchQuery !== ''){
       for(var i=0; i<favoriteArr.length; i++){
         if(favoriteArr[i].full_name.toLowerCase().includes(searchQuery.toLowerCase())){
           console.log(favoriteArr[i])
@@ -35,7 +35,7 @@ function FavoritePage() {
 
   useEffect(()=>{
     // if(favoriteArr[favoriteArr.length-1])
-    if(favoriteArr.length !=0){
+    if(favoriteArr.length !==0){
       dispatch(favoriteAction(favoriteArr))
     }
     
@@ -43,9 +43,9 @@ function FavoritePage() {
 
 
   const handleDelete = (id) =>{
-    var tempArray = new Array()
+    var tempArray = []
     for(var i=0; i<favoriteArr.length; i++){
-      if(favoriteArr[i].id != id){
+      if(favoriteArr[i].id !== id){
         tempArray.push(favoriteArr[i])
       }
     }
@@ -61,14 +61,14 @@ function FavoritePage() {
   const handleDeleteAfterSearch = (id) =>{
     var tempArray = new Array()
     for(var i=0; i<favoriteArr.length; i++){
-      if(favoriteArr[i].id != id){
+      if(favoriteArr[i].id !== id){
         tempArray.push(favoriteArr[i])
       }
     }
     console.log(tempArray)
     
     setFavoriteArr(tempArray)
-    if(tempArray.length == 0){
+    if(tempArray.length === 0){
       tempArray = []
     }
     localStorage.setItem('favorite-repo', JSON.stringify(tempArray))
@@ -129,11 +129,11 @@ function FavoritePage() {
       {/* <CSVDownload data={csvData} target="_blank" />; */}
     <div className="search_results_div">
     {
-      favoriteArr.length != 0 ?
+      favoriteArr.length !== 0 ?
       (<>
         <h2 style={{marginTop: "1rem"}}>Your Favorite Repositories</h2>
         {
-            searchResult.length == 0 ? favoriteArr.length != 0 && favoriteArr.map((each,i)=>
+            searchResult.length === 0 ? favoriteArr.length !== 0 && favoriteArr.map((each,i)=>
             (<>
             <h4>{i+1}. <a href={each.html_url} style={{textDecoration: "none", color: "rgb(206, 201, 201)"}}><span style={{fontWeight: "bold", color: '#dc2f55'}}>{each.full_name}</span></a> by <span style={{fontWeight: "bold"}}>{each.owner.login}</span> ({each.stargazers_count} stars)</h4>
             <button className="fav-button" onClick={()=>handleDelete(each.id)}>Delete from Favorites</button>
