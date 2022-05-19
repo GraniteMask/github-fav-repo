@@ -88,15 +88,18 @@ function FavoritePage() {
     element.click();
   }
 
-  const importFunc = async (e) =>{
+  const importFunc = (e) =>{
     e.preventDefault()
-    const reader = new FileReader()
-    reader.onload = async (e) => { 
-      const text = (e.target.result)
-      localStorage.setItem('favorite-repo', text)
-      setFavoriteArr(JSON.parse(text))
-    };
-    reader.readAsText(e.target.files[0])
+    if(e){
+      const reader = new FileReader()
+      reader.onload = async (e) => { 
+        const text = (e.target.result)
+        localStorage.setItem('favorite-repo', text)
+        setFavoriteArr(JSON.parse(text))
+      };
+      reader.readAsText(e.target.files[0])
+    }
+    
   }
 
   return (
@@ -115,7 +118,15 @@ function FavoritePage() {
 
       <button className="fav-button" style={{marginTop: "1.5rem"}} onClick={()=>history.push('/')}>Go back to search page</button>
       <button className="fav-button" style={{marginTop: "1.5rem"}} onClick={()=>exportFunc()}>Export</button>
-      <input className="fav-button" style={{marginTop: "1.5rem"}} onChange={(e)=>importFunc(e)} type="file" label="Import"/>
+      {/* <button style={{marginTop: "1.5rem"}} className="fav-button">
+        Import
+        <input onChange={(e)=>importFunc(e)} type="file" />
+      </button> */}
+      <button className="fav-button">
+        <input type="file" name="uploadfile" id="file" style={{display: "none", width: "100%"}}  onChange={(e)=>importFunc(e)}/>
+        <label for="file" style={{cursor: "pointer"}}>Import</label>
+      </button>
+      
       {/* <CSVDownload data={csvData} target="_blank" />; */}
     <div className="search_results_div">
     {
