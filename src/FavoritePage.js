@@ -88,6 +88,17 @@ function FavoritePage() {
     element.click();
   }
 
+  const importFunc = async (e) =>{
+    e.preventDefault()
+    const reader = new FileReader()
+    reader.onload = async (e) => { 
+      const text = (e.target.result)
+      localStorage.setItem('favorite-repo', text)
+      setFavoriteArr(JSON.parse(text))
+    };
+    reader.readAsText(e.target.files[0])
+  }
+
   return (
     <div className="App">
       <h1 style={{marginTop: "6rem", fontSize: "3rem"}}>Your Favorite Repositories</h1>
@@ -104,6 +115,7 @@ function FavoritePage() {
 
       <button className="fav-button" style={{marginTop: "1.5rem"}} onClick={()=>history.push('/')}>Go back to search page</button>
       <button className="fav-button" style={{marginTop: "1.5rem"}} onClick={()=>exportFunc()}>Export</button>
+      <input className="fav-button" style={{marginTop: "1.5rem"}} onChange={(e)=>importFunc(e)} type="file" label="Import"/>
       {/* <CSVDownload data={csvData} target="_blank" />; */}
     <div className="search_results_div">
     {
