@@ -1,6 +1,6 @@
 import { SEARCH_SUCCESS, SEARCH_FAIL, SEARCH_REQUEST } from "../constants/constants";
 
-export const searchReducer = (state={results:{}, loading: true}, action) =>{
+export const searchReducer = (state={loading: true}, action) =>{
     switch(action.type){
         case SEARCH_REQUEST:
             return {...state, loading: true}

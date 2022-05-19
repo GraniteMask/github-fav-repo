@@ -5,7 +5,6 @@ import { searchReducer } from "./reducers/searchReducers";
 
 const initialState ={
     result: [],
-    favorite: localStorage.getItem('favorite-repo') ? JSON.parse(localStorage.getItem('favorite-repo')) : []
 }
 
 const reducer = combineReducers({

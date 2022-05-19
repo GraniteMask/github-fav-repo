@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Macondo&display=swap');
 
+#root{
+  background: #15172b;
+}
+
 .App{
   background: #15172b;
   height: 100vh;
@@ -117,7 +121,7 @@ input[type="text"]
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  display: none;
 }
 
 .fav-button{
@@ -128,6 +132,7 @@ input[type="text"]
   margin-top: -1rem;
   cursor: pointer;
   transition: 0.2s all ease-in-out;
+  font-weight: bold !important;
 }
 
 .fav-button:hover{
