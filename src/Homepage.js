@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchRepo } from './actions/searchActions';
 import { favoriteAction } from './actions/favoriteAction';
+import { useHistory } from "react-router-dom";
 
 
 function HomePage() {
@@ -13,6 +14,7 @@ function HomePage() {
   const dispatch = useDispatch()
   const [searchQuery, setSearchQuery] = useState('')
   const [favoriteArr, setFavoriteArr] = useState([])
+  let history = useHistory()
 
   useEffect(()=>{
     setFavoriteArr(JSON.parse(localStorage.getItem('favorite-repo')) ? JSON.parse(localStorage.getItem('favorite-repo')) : [])
@@ -39,11 +41,6 @@ function HomePage() {
     setFavoriteArr(arr=>[...arr, each])
     
   }
-
-  const handleDelete = (id) =>{
-    setFavoriteArr(arr=>[...arr, arr.filter(x=>x.id !== id)])
-  }
-
   console.log(favoriteArr)
 
   return (
@@ -60,16 +57,16 @@ function HomePage() {
         </div>
       </div>
 
-    
-          <div className="search_results_div">
-            <h2 style={{marginTop: "1rem"}}>Your Search Results</h2>
-            {
-              results != undefined && results.items.map((each,i)=>(<>
-                <h4>{i+1}. <a href={each.html_url} style={{textDecoration: "none", color: "rgb(206, 201, 201)"}}><span style={{fontWeight: "bold", color: '#dc2f55'}}>{each.full_name}</span></a> by <span style={{fontWeight: "bold"}}>{each.owner.login}</span> ({each.stargazers_count} stars)</h4>
-                <button className="fav-button" onClick={()=>handleFavorite(each)}>Add to Favorite</button>
-                </>))
-            }
-          </div>
+      <button className="fav-button" style={{marginTop: "1.5rem"}} onClick={()=>history.push('/favorite')}>See your favorite Repositories</button>
+      <div className="search_results_div">
+        <h2 style={{marginTop: "1rem"}}>Your Search Results</h2>
+        {
+          results != undefined && results.items.map((each,i)=>(<>
+            <h4>{i+1}. <a href={each.html_url} style={{textDecoration: "none", color: "rgb(206, 201, 201)"}}><span style={{fontWeight: "bold", color: '#dc2f55'}}>{each.full_name}</span></a> by <span style={{fontWeight: "bold"}}>{each.owner.login}</span> ({each.stargazers_count} stars)</h4>
+            <button className="fav-button" onClick={()=>handleFavorite(each)}>Add to Favorite</button>
+            </>))
+        }
+      </div>
 
       
 
