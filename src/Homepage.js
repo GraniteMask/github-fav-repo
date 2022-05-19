@@ -39,7 +39,7 @@ function HomePage() {
 
   const handleFavorite = (each) =>{
     setFavoriteArr(arr=>[...arr, each])
-    
+    alert('Added to favorites')
   }
   console.log(results)
 
